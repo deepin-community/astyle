@@ -1,0 +1,2 @@
+#!/usr/bin/dh-exec
+usr/lib/jni/${DEB_HOST_MULTIARCH}/libastylej.so.3.1.0 usr/lib/jni/${DEB_HOST_MULTIARCH}/libastylej.so

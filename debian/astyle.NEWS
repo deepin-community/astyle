@@ -1,0 +1,60 @@
+astyle (3.0-1) unstable; urgency=medium
+
+    A few options have been renamed:
+      - "break-closing-brackets" becomes "break-closing-braces"
+      - "add-brackets" becomes "add-braces"
+      - "add-one-line-brackets" becomes "add-one-line-braces"
+      - "remove-brackets" becomes "remove-braces"
+      - "max-instatement-indent" becomes "max-continuation-indent"
+    The old names have been deprecated (rather than disabled), but you
+    should switch to the new names in your scripts.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Fri, 25 Aug 2017 17:33:54 -0400
+
+astyle (2.03-1) unstable; urgency=low
+
+    The usual warning applies again:
+    With a new Artistic Style release some unchanged source files will be
+    formatted. You may want to format your source before making program
+    changes in order to bring it up to date.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Wed, 15 May 2013 00:13:01 -0400
+
+astyle (2.02.1-1) experimental; urgency=low
+
+    This Artistic Style release brings some important changes, especially in
+    the definition of bracket styles and default indent size. Please have a
+    look at /usr/share/doc/astyle/html/news.html to understand what changed
+    and what will change in the future.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Thu, 17 May 2012 11:45:41 +0200
+
+astyle (2.01-1) unstable; urgency=low
+
+    Here is an extract from the release notes:
+    With a new Artistic Style release some unchanged source files will be
+    formatted because of changes to Artistic Style. You may want to format
+    your source before making program changes in order to bring it up to
+    date.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Mon, 21 Feb 2011 16:30:22 +0100
+
+astyle (1.24-1) unstable; urgency=low
+
+    Beware! This new astyle version once more fixes and improves many
+    options, but your code could be re-indented even if you changed nothing.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Thu, 08 Apr 2010 20:40:00 +0200
+
+astyle (1.23-1) unstable; urgency=low
+ 
+    Beware! This much awaited version of astyle changes many options, and it
+    is possible that some code gets re-indented with no changes done.
+ 
+    You may want to format your source before making program changes in order
+    to bring it up to date.
+ 
+    Read /usr/share/doc/astyle/html/news.html for the whole list of new 
+    options and changes.
+
+ -- Margarita Manterola <marga@debian.org>  Thu, 06 Aug 2009 22:16:10 +0000

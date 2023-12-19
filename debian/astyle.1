@@ -1,0 +1,52 @@
+.TH ASTYLE 1 "September 6, 2014" astyle "User's Manual"
+.SH NAME
+astyle \- multi-language indentation and reformatting filters
+
+.SH SYNOPSIS
+.B astyle
+
+\fBastyle\fR [\fIoptions\fR] \fIFile1\fR [\fIFile2\fR] [\fI...\fR]
+
+.SH DESCRIPTION
+\fBArtistic Style\fR (or \fBastyle\fR) is a source code indenter, formatter
+and beautifier, written in C++. It handles the following programming languages:
+
+.RS
+.IP \(bu 3
+C
+.IP \(bu 3
+C++
+.IP \(bu 3
+C++/CLI
+.IP \(bu 3
+Objective-C
+.IP \(bu 3
+C#
+.IP \(bu 3
+Java
+.RE
+
+.SH USAGE
+For the full usage, please refer to the HTML documentation provided with this
+distribution in \fI/usr/share/doc/astyle/html\fR
+
+.P
+Please note that when indenting a specific file the newly indented file retains
+the original filename, while a copy of the original file is created, with a
+suffix of ".orig" added to the original filename.
+
+.SH "SEE ALSO"
+.BR indent(1)
+
+.I http://astyle.sourceforge.net/
+.br
+.I http://www.sourceforge.net/projects/astyle/
+.br
+.I http://packages.debian.org/astyle
+
+.SH AUTHOR
+Artistic Style was originally written by Tal Davidson <davidsont@bigfoot.com>
+and is currently maintained by Jim Pattee <jimp03@email.com>.
+
+This stub manual page was written by Matteo Cypriani <mcy@lm7.fr> for the
+Debian project.

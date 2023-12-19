@@ -1,0 +1,5 @@
+# We do import CPPFLAGS from dpkg-buildflags.
+hardening-no-fortify-functions
+# C++ library, symbols file is pretty useless and causes FTBFS on a regular
+# basis.
+no-symbols-control-file

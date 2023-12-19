@@ -1,5 +1,487 @@
-template-repository (1.0-1) unstable; urgency=medium
+astyle (3.1-3) unstable; urgency=medium
 
-  * Initial release
+  [ Ondřej Nový ]
+  * d/watch: Use https protocol.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+  [ Pino Toscano ]
+  * Build Java bindings only on architectures with Java; this allows building
+    astyle on those architectures. (Closes: #995612)
+  * Added no_PATH_MAX.patch. (Closes: #995615)
+
+  [ Matteo Cypriani ]
+  * Switch to dh compat 13, quit using compat file.
+  * d/rules: quit building with -Wl,--as-needed.
+  * d/control: add Rules-Requires-Root field.
+  * d/watch: update to version 4 format.
+  * Added d/upstream/metadata.
+  * Added d/not-installed.
+  * d/copyright: bumped dates.
+  * Bump Standards-Version to 4.6.2 (no changes needed).
+  * Added d/patches/news_encoding.patch (converts news.html to UTF-8).
+  * Lintian:
+    + Override "debian-news-entry-has-unknown-version" (see #1021502).
+    + Override "package-has-unnecessary-activation-of-ldconfig-trigger" for
+      libastylej-jni, even though it's a true positive.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Mon, 20 Feb 2023 22:54:36 +0100
+
+astyle (3.1-2) unstable; urgency=medium
+
+  * Dropping symbols file for libastyle. Closes: #897710, #894872.
+    + Rationale: https://www.eyrie.org/~eagle/journal/2012-02/001.html
+  * Bump Standards-Version to 4.1.5 (no changes needed).
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Thu, 19 Jul 2018 21:25:00 +0200
+
+astyle (3.1-1) unstable; urgency=medium
+
+  * New upstream version.
+    + Refresh privacy.patch.
+    + Update libastyle3.symbols.
+    + Update debian/copyright.
+    + Update debian/*.links.
+  * Update symbols for building with -O3 on ppc64el. Thanks Ubuntu
+    maintainers!
+  * Build with cmake
+    + Add cmakelists.patch.
+  * debian/control:
+    + Change Section for libastylej-jni (java).
+    + Switch to salsa.d.o URLs.
+    + Bump Standards-Version to 4.1.3 (no changes needed).
+  * Switch to dh compat level 11.
+  * debian/rules: remove unneeded --parallel debhelper option.
+  * debian/changelog: remove trailing whitespaces.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Sun, 18 Mar 2018 14:07:06 +0100
+
+astyle (3.0.1-1) unstable; urgency=medium
+
+  * New upstream version.
+  * libastyle3.symbols:
+    + Add new symbol appeared in 3.0.1.
+    + Delete optional symbol disappeared in 3.0.0.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Fri, 08 Sep 2017 11:45:58 -0400
+
+astyle (3.0-2) unstable; urgency=medium
+
+  * Fix libastyle3.symbols for 32-bit architectures, including specific fixes
+    for armel.
+  * Quit parsing output of dpkg-parsechangelog.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Mon, 28 Aug 2017 14:34:54 -0400
+
+astyle (3.0-1) unstable; urgency=medium
+
+  * New upstream version.
+    + New library soname (3.0.0), renamed package (libastyle3).
+    + Dropped set_soname.patch.
+    + Refreshed privacy.patch.
+  * Update libastyle3.symbols. Closes: #853321.
+  * Drop hardening.patch, handle PIE via DEB_BUILD_MAINT_OPTIONS.
+  * Update debian/copyright.
+  * Bump Standards-Version to 4.1.0 (no changes needed).
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Fri, 25 Aug 2017 17:33:54 -0400
+
+astyle (2.06-2) unstable; urgency=medium
+
+  * Mark two symbols as optional.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Fri, 20 Jan 2017 10:27:16 -0500
+
+astyle (2.06-1) unstable; urgency=medium
+
+  * New upstream version. Closes: #789215.
+    + Fixed last character repeated in output when reading from stdin
+      (issue 305). Closes: #769524.
+
+  [ Matthias Klose ]
+  * Mark the library packages as M-A: same.
+  * Enable parallel builds.
+  * debian/astyle.doc-base: change HTML documentation index.
+
+  [ Margarita Manterola ]
+  * Acknowledge NMU.
+  * Drop PIC patch (applied upstream).
+
+  [ Matteo Cypriani ]
+  * libastyle: new soname and package name: 0debian2.06
+    (no reverse-dependencies).
+  * Update debian/copyright.
+    + License changed to MIT.
+  * Patches:
+    + Drop fix-jni-include-path.patch (fixed upstream).
+    + Add hardening.patch (enables PIE).
+    + Rewrite privacy.patch.
+    + Refresh set_soname.patch.
+  * debian/rules: improve flag import, BINDNOW hardening.
+  * Bump Standards-Version to 3.9.8 (no changes needed).
+  * Switch to debhelper compat 10.
+  * Suggest xdg-utils, useful for the new html (-!) option.
+  * Use secure URIs for Vcs-Git and Vcs-Browser.
+  * Add symbols file.
+  * Add lintian overrides for libastyle and libastyle-jni.
+  * Add libastyle-dev.NEWS, rename NEWS to astyle.NEWS.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Thu, 19 Jan 2017 16:30:33 -0500
+
+astyle (2.04-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * Fix FTBFS with DEB_BUILD_OPTIONS=nostrip (Closes: #812658)
+  * Fix JNI include path (Closes: #814580)
+
+ -- Ben Hutchings <ben@decadent.org.uk>  Sat, 20 Feb 2016 22:07:28 +0000
+
+astyle (2.04-1) unstable; urgency=medium
+
+  * Acknowledging NMU.
+  * New upstream release. (Closes: #757809)
+    + Update debian/copyright.
+    + Update package description.
+    + Refresh patches (and improve DEP-3 tags).
+  * Shared lib: don't pre-depend on multiarch-support.
+  * Simplify the man page.
+  * Use canonical VCS fields in debian/control.
+  * Switch packagers' roles (Margarita as Uploader and Matteo as Maintainer).
+  * Delete wrong entry in debian/NEWS.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Mon, 08 Sep 2014 11:14:27 -0400
+
+astyle (2.03-1.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix FTBFS on s390x due to using -fpic instead of -fPIC
+    - debian/patches/FTBFS_FPIC.patch
+
+ -- Scott Howard <showard@debian.org>  Sun, 23 Mar 2014 10:58:45 -0400
+
+astyle (2.03-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Build shared library and Java JNI library (Closes: #452742)
+    - debian/patches/set_soname.patch assigns the 0debian0 soversion
+  * Lintian cleaning:
+    - Errors: privacy-breach-logo and privacy-breach-piwik fixed in
+      debian/patches/privacy.patch
+    - Debian S-V 3.9.5, no changes
+
+ -- Scott Howard <showard@debian.org>  Sat, 08 Mar 2014 13:21:36 -0500
+
+astyle (2.03-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #707889, #631966, LP: #1049606)
+  * Update manpage.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Wed, 15 May 2013 00:10:00 -0400
+
+astyle (2.02.1-2) unstable; urgency=low
+
+  * Upload to unstable
+  * manpage: highlight buggy --preserve-date (Closes: #686317)
+  * Fix debian/changelog
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Sun, 05 May 2013 16:48:47 -0400
+
+astyle (2.02.1-1) experimental; urgency=low
+
+  [ Matteo Cypriani ]
+  * New upstream release. (Closes: #649616)
+  * Update manpage.
+  * Bump Standards-Version to 3.9.4 (no changes needed).
+  * Switch to debhelper 9.
+  * debian/rules:
+    + add CPPFLAGS to CFLAGS as expected by upstream build system.
+    + add commented out DH_OPTIONS=-v for easy verbose build.
+  * debian/copyright: update Format and dates.
+
+  [ Thomas Preud'homme ]
+  * Switch to a dh style rules file to provide build-{arch,indep} targets.
+  * Fix the package to be able to build twice in a row.
+  * Call make clean unconditionally in override_dh_auto_clean.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Mon, 14 Jan 2013 17:52:11 -0500
+
+astyle (2.01-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #616710)
+  * Update package description.
+  * Update manpage.
+  * Bump Standards-Version to 3.9.2
+  * Convert debian/copyright to DEP5 format.
+  * Switch to 3.0 (quilt) format.
+  * Add VCS fields.
+  * Avoid unneeded dependency on libgcc_s.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Thu, 12 May 2011 15:15:13 +0200
+
+astyle (1.24-1) unstable; urgency=low
+
+  * New upstream release.
+    - Fix comma separated initialization bug (Closes: #569170)
+  * Updated the manpage to reflect the new options.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Thu, 08 Apr 2010 20:40:00 +0200
+
+astyle (1.23-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #522730)
+  * Updated manpage to reflect new option.
+  * Added NEWS file to warn about the changes.
+
+ -- Margarita Manterola <marga@debian.org>  Fri, 07 Aug 2009 13:26:10 +0000
+
+astyle (1.22-3) unstable; urgency=low
+
+  * Fixed lintian warnings regarding hyphens in the manpage.
+  * Fixed the watch file for the new version.
+
+ -- Margarita Manterola <marga@debian.org>  Wed, 27 Aug 2008 14:52:19 +0000
+
+astyle (1.22-2) unstable; urgency=low
+
+  * Fixed bug in the manpage, mixing -V and -v.  Thanks to Martin Ferrari
+    for the report. (Closes: #496790)
+  * Updated Standards-Version to 3.8.0.
+    + Added README.source pointing to dpatch's README.source.gz
+
+ -- Margarita Manterola <marga@debian.org>  Wed, 27 Aug 2008 14:03:03 +0000
+
+astyle (1.22-1) unstable; urgency=low
+
+  * New upstream release
+    + Fix incorrect identification of bracket type following a struct
+      statement. (Closes: #112546)
+  * Added new "links.html" document to debian/astyle.docs
+  * Changed debian/rules to use the new "buildgcc" directory.
+  * Corrected the doc-base section.
+
+ -- Margarita Manterola <marga@debian.org>  Sun, 27 Apr 2008 13:58:37 +0000
+
+astyle (1.21-3) unstable; urgency=low
+
+  * Fixed debian/rules so that "nostrip" is honored by the build process.
+    (Closes: #436484)
+  * Fixed the clean rule to actually call make clean.
+
+ -- Margarita Manterola <marga@debian.org>  Tue, 11 Mar 2008 17:51:07 +0000
+
+astyle (1.21-2) unstable; urgency=low
+
+  * New fix_for_gcc_4.3.dpatch, provided by Cyril Brulebois.
+    (Closes: #455426)
+  * Fixed watch file.
+  * Added Homepage field to the Source package.
+  * Updated Standards-Version (no changes needed).
+  * Fixed debian/rules to not ignore make clean errors.
+  * Fixed debian/copyright to have a copyright statement and make it machine
+    parseable.  Added the years for the upstream authors and the debian
+    maintainers.
+  * Updated the doc-base section to reflect the new menu structure.
+
+ -- Margarita Manterola <marga@debian.org>  Tue, 11 Mar 2008 17:34:44 +0000
+
+astyle (1.21-1) unstable; urgency=low
+
+  * New upstream release
+    + Do not apply fix_for_gcc_4.3.dpatch, since it's now applied upstream.
+    + Fix formatting of empty blocks. (Closes: #397799)
+
+ -- Margarita Manterola <marga@debian.org>  Fri, 22 Jun 2007 17:49:56 -0300
+
+astyle (1.20.2-2) unstable; urgency=low
+
+  * New upstream release (now in unstable). (Closes: #412333).
+    + Fix incorrect formatting for an empty comment (Closes: #415565).
+  * Added debian/patches/fix_for_gcc_4.3.dpatch, fixing the dependencies
+    for gcc 4.3 (Closes: #413481). Thanks to Martin Michlmayr for the
+    report and the patch.
+
+ -- Margarita Manterola <marga@debian.org>  Sun, 15 Apr 2007 14:12:30 -0300
+
+astyle (1.20.2-1) experimental; urgency=low
+
+   * New upstream release. (Would close: #412333)
+   * Changed copyright file, astyle is now LGPL.
+   * Updated the manpage to the current version.
+
+ -- Margarita Manterola <marga@debian.org>  Tue, 13 Mar 2007 00:23:12 -0300
+
+astyle (1.18-1) unstable; urgency=low
+
+  * New upstream release (Closes: #375760).
+    + Doesn't remove leading spaces from multi-line comments.
+      (Closes: #201655)
+    + Fixed indentation problem with ending }; of class statements.
+      (Closes: #270999)
+    + Fixed extra space that was sometimes added when pad operators was
+      used. (Closes: #118203)
+    + Fixed problems detecting some keywords as "lock" or "get".
+      (Closes: #355171)
+  * Updated debhelper compatibility to level 5, no changes needed.
+  * Updated Standards-Version to 3.7.2, no changes needed.
+  * Updated the watch file.
+  * Dropped 100_g++-3.4.dpatch, since it has been applied upstream.
+  * Dropped 200_long_lines.dpatch, since it has been applied upstream.
+
+ -- Margarita Manterola <marga@debian.org>  Sat, 15 Jul 2006 19:32:20 -0300
+
+astyle (1.15.3-5) unstable; urgency=low
+
+  * New upload to trigger a recompile due to the C++ transition.
+  * Fixed debian/rules to comply better with policy.
+  * Updated debian/control to the latest policy version.
+
+ -- Margarita Manterola <debian@marga.com.ar>  Tue,  4 Oct 2005 11:13:02 -0300
+
+astyle (1.15.3-4) unstable; urgency=low
+
+  * Added patch to support longer lines (closes: #187171).
+  * Fixed typo in the manpage (closes: #238693).
+  * Added patch to support g++-3.4 (closes: #266663).
+  * Added dpatch to work with patches.
+  * Fixed the watch and control files to match present policy.
+  * New Maintainer - Adopting package (closes: #266457).
+
+ -- Margarita Manterola <debian@marga.com.ar>  Thu, 21 Oct 2004 12:09:00 -0300
+
+astyle (1.15.3-3) unstable; urgency=low
+
+  * built with latest g++
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Sat, 14 Jun 2003 11:27:20 -0700
+
+astyle (1.15.3-2) unstable; urgency=low
+
+  * the 'no new functionality' release
+  * debian/watch: trivial change to handle sf.net brokeness
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Sun,  2 Jun 2002 17:26:27 -0700
+
+astyle (1.15.3-1) unstable; urgency=low
+
+  * New upstream release
+  * Note that the license has changed:
+    was: (dual) GPL + Artistic
+    is:  GPL only
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Sat, 23 Mar 2002 17:40:03 -0800
+
+astyle (1.14.1-5) unstable; urgency=low
+
+  * added a watch file
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Wed, 26 Dec 2001 12:38:03 -0800
+
+astyle (1.14.1-4) unstable; urgency=low
+
+  * fixed html bug and used tidy on astyle.html (Closes: Bug#120184)
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Mon, 19 Nov 2001 03:27:31 -0800
+
+astyle (1.14.1-3) unstable; urgency=low
+
+  * minor modification to copyright notice
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Tue, 23 Oct 2001 08:14:02 -0700
+
+astyle (1.14.1-2) unstable; urgency=low
+
+  * Added a manpage for astyle (provided by "The Missing Man Pages Project")
+
+ -- Luca Filipozzi <lfilipoz@emyr.net>  Sat, 18 Aug 2001 13:11:50 -0700
+
+astyle (1.14.1-1) unstable; urgency=low
+
+  * New upstream release (Closes: #108992)
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Sat, 18 Aug 2001 11:25:49 -0700
+
+astyle (1.11.6-4) unstable; urgency=low
+
+  * applied patch provided by Matthew Wilcox <willy@debian.org> to
+    allow astyle to be compiled with gcc 3.0 (Closes: #104406, #104683)
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Sun, 15 Jul 2001 20:25:34 -0700
+
+astyle (1.11.6-3) unstable; urgency=low
+
+  * Adopting package (Closes: #86873).
+
+ -- Luca Filipozzi <lfilipoz@debian.org>  Thu, 22 Feb 2001 11:02:34 -0800
+
+astyle (1.11.6-2) unstable; urgency=low
+
+  * Orphaning package
+
+ -- Sean 'Shaleh' Perry <shaleh@debian.org>  Wed, 21 Feb 2001 08:01:35 -0800
+
+astyle (1.11.6-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Sean 'Shaleh' Perry <shaleh@debian.org>  Mon, 22 May 2000 16:31:30 -0700
+
+astyle (1.11.5-1) unstable; urgency=low
+
+  * New upstream release
+  * changes to meet current policy
+
+ -- Sean E. Perry <shaleh@debian.org>  Thu, 11 Nov 1999 22:31:40 -0800
+
+astyle (1.11.4-1) unstable; urgency=low
+
+  * New upstream
+  * supports FHS policy now
+
+ -- Sean E. Perry <shaleh@debian.org>  Mon, 20 Sep 1999 15:05:39 -0700
+
+astyle (1.11.1-1) unstable; urgency=low
+
+  * New upstream release
+  * New maintainer
+
+ -- Sean E. Perry <shaleh@debian.org>  Fri,  3 Sep 1999 11:17:28 -0700
+
+astyle (1.10.4-3) unstable; urgency=low
+
+  * Rebuild with newer debhelper (Closes: #43208)
+
+ -- Brian M. Almeida <bma@debian.org>  Thu, 19 Aug 1999 09:59:26 -0400
+
+astyle (1.10.4-2) unstable; urgency=low
+
+  * Make help print out to stdout instead of stderr (Closes: #42551)
+
+ -- Brian M. Almeida <bma@debian.org>  Fri,  6 Aug 1999 09:05:29 -0400
+
+astyle (1.10.4-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Brian M. Almeida <bma@debian.org>  Wed,  4 Aug 1999 11:03:36 -0400
+
+astyle (1.10.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Brian M. Almeida <bma@debian.org>  Wed, 21 Jul 1999 11:13:01 -0400
+
+astyle (1.8.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Brian M. Almeida <bma@debian.org>  Wed, 24 Mar 1999 18:46:15 -0500
+
+astyle (1.8.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Brian M. Almeida <bma@debian.org>  Thu, 11 Mar 1999 01:16:11 -0500
+
+astyle (1.7.6-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Brian M. Almeida <bma@debian.org>  Mon, 22 Feb 1999 00:19:25 -0500

@@ -1,0 +1,8 @@
+astyle (2.06-1) unstable; urgency=medium
+
+    From the official documentation (version 2.05.1):
+    A shared library error handler argument has been changed from "char*" to
+    "const char*". In some cases this may cause compile errors in a user
+    program until the references have been changed.
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Mon, 16 Jan 2017 13:33:34 -0500

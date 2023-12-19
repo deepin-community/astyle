@@ -1,0 +1,11 @@
+Document: astyle
+Title: Artistic Style documentation
+Author: Tal Davidson
+Abstract: Documentation for the Artistic Style code reformatter.
+ .
+Section: Programming
+
+Format: HTML
+Index: /usr/share/doc/astyle/html/astyle.html
+Files: /usr/share/doc/astyle/html/*.html
+
