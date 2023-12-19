@@ -1,0 +1,6 @@
+# The following files are symlinked rather than installed (they are duplicate
+# in the build tree):
+usr/lib/libastyle.so
+usr/lib/libastyle.so.3
+usr/lib/libastylej.so
+usr/lib/libastylej.so.3

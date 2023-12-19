@@ -1,0 +1,15 @@
+Description: Converts news.html to UTF-8
+Author: Matteo Cypriani <mcy@lm7.fr>
+Forwarded: no
+Last-Update: 2023-02-20
+--- a/doc/news.html
++++ b/doc/news.html
+@@ -92,7 +92,7 @@
+         have scrolled past the Contents section. It is labeled &quot;Top&quot; but actually takes you back to the Contents.
+         The purpose is to improve speed in navigating the document. </p>
+     <p>
+-        Thanks to Rian Quinn, David Haney, and Tam·s Kurucsai for their contributions.</p>
++        Thanks to Rian Quinn, David Haney, and Tam√°s Kurucsai for their contributions.</p>
+ 
+     <h3>Artistic Style 3.0&nbsp; (April 2017)</h3>
+ 

@@ -1,0 +1,225 @@
+Description: Enables building executable, shared and java libs in one pass
+Author: Matteo Cypriani <mcy@lm7.fr>
+Forwarded: yes
+Last-Update: 2018-03-18
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,7 @@
+ endif()
+ 
+ # Build Options - executable by default, libraries on request
++option(BUILD_EXECUTABLE  "Build astyle binary"  ON)
+ option(BUILD_JAVA_LIBS   "Build java library"   OFF)
+ option(BUILD_SHARED_LIBS "Build shared library" OFF)
+ option(BUILD_STATIC_LIBS "Build static library" OFF)
+@@ -34,6 +35,44 @@
+     doc/notes.html
+     doc/styles.css)
+ 
++macro(set_linker_options strip_option)
++    # Remove -rdynamic and add 'strip' to linker flags
++    if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
++        set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
++        set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} ${strip_option}")
++        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${strip_option}")
++    endif()
++    # Shared library options
++    if(BUILD_SHARED_LIBS)
++        if(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
++            set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-intel")
++        elseif(MINGW)
++            # minGW dlls don't work
++            # tdm-gcc dlls work with everything except python
++            set(CMAKE_SHARED_LINKER_FLAGS
++                "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--add-stdcall-alias -Wl,--dll")
++        elseif(BORLAND)
++            # use a development environment to compile Borland dlls
++        endif()
++    endif()
++endmacro()
++
++# Set default compile options for supported compilers
++if(APPLE)
++    set(COMPILE_OPTS -W -Wall -fno-rtti -fno-exceptions -std=c++11 -stdlib=libc++)
++elseif(NOT WIN32)   # Linux
++    set(COMPILE_OPTS -Wall -fno-rtti -fno-exceptions -std=c++11)
++    set(LINKER_OPTS -s)
++elseif(BORLAND)     # Release must be explicitely requested for Borland
++    set(COMPILE_OPTS -w -x-)   # Cannot use no-rtti (-RT-)
++elseif(MINGW)
++    set(COMPILE_OPTS -Wall -Wextra -fno-rtti -fno-exceptions -std=c++0x)
++    set(LINKER_OPTS -s)
++endif()
++if(LINKER_OPTS)
++    set_linker_options(${LINKER_OPTS})
++endif()
++
+ # If a java library is requested, shared libraries should be enabled
+ # and the Java Development Kit 'include' directories added
+ if(BUILD_JAVA_LIBS)
+@@ -51,17 +90,26 @@
+             message(FATAL_ERROR "Java Development Kit not installed")
+         endif()
+     endif()
++    add_library(astyle_javalib ${SRCS})
++    target_compile_options(astyle_javalib PRIVATE ${COMPILE_OPTS})
++    if(NOT WIN32)
++        install(TARGETS astyle_javalib DESTINATION /usr/lib)
++    endif()
+ endif()
+ 
+ # Define the output type and install directories
+ # To uninstall 'xargs rm < install_manifest.txt'
+ if(BUILD_SHARED_LIBS OR BUILD_STATIC_LIBS)
+-    add_library(astyle ${SRCS})
++    add_library(astyle_lib ${SRCS})
++    target_compile_options(astyle_lib PRIVATE ${COMPILE_OPTS})
+     if(NOT WIN32)
+-        install(TARGETS astyle DESTINATION /usr/lib)
++        install(TARGETS astyle_lib DESTINATION /usr/lib)
+     endif()
+-else()
++endif()
++
++if(BUILD_EXECUTABLE)
+     add_executable(astyle ${SRCS})
++    target_compile_options(astyle PRIVATE ${COMPILE_OPTS})
+     if(WIN32)
+         set(pf86 "PROGRAMFILES(x86)")
+         set(prog_files $ENV{${pf86}})
+@@ -77,96 +125,71 @@
+ endif()
+ 
+ # Set build-specific compile options
+-if(BUILD_SHARED_LIBS OR BUILD_STATIC_LIBS)
+-    if(BUILD_JAVA_LIBS)
+-        target_compile_options(astyle PRIVATE -DASTYLE_JNI)
+-        if(WIN32)
+-            target_include_directories(astyle PRIVATE $ENV{JAVA_HOME}/include)
+-            target_include_directories(astyle PRIVATE $ENV{JAVA_HOME}/include/win32)
+-        else()
+-            target_include_directories(astyle PRIVATE /usr/lib/jvm/default-java/include)
+-            target_include_directories(astyle PRIVATE /usr/lib/jvm/default-java/include/linux)
+-        endif()
++if(BUILD_JAVA_LIBS)
++    target_compile_options(astyle_javalib PRIVATE -DASTYLE_JNI)
++    if(WIN32)
++        target_include_directories(astyle_javalib PRIVATE $ENV{JAVA_HOME}/include)
++        target_include_directories(astyle_javalib PRIVATE $ENV{JAVA_HOME}/include/win32)
+     else()
+-        target_compile_options(astyle PRIVATE -DASTYLE_LIB)
++        target_include_directories(astyle_javalib PRIVATE /usr/lib/jvm/default-java/include)
++        target_include_directories(astyle_javalib PRIVATE /usr/lib/jvm/default-java/include/linux)
+     endif()
+     # Windows DLL exports removed
+-    set_property(TARGET astyle PROPERTY DEFINE_SYMBOL "")
++    set_property(TARGET astyle_javalib PROPERTY DEFINE_SYMBOL "")
+     # Linux solib version added
+-    set_property(TARGET astyle PROPERTY VERSION ${SOLIBVER})
+-    set_property(TARGET astyle PROPERTY SOVERSION ${MAJORVER})
++    set_property(TARGET astyle_javalib PROPERTY VERSION ${SOLIBVER})
++    set_property(TARGET astyle_javalib PROPERTY SOVERSION ${MAJORVER})
++endif()
++if(BUILD_SHARED_LIBS OR BUILD_STATIC_LIBS)
++    target_compile_options(astyle_lib PRIVATE -DASTYLE_LIB)
++    # Windows DLL exports removed
++    set_property(TARGET astyle_lib PROPERTY DEFINE_SYMBOL "")
++    # Linux solib version added
++    set_property(TARGET astyle_lib PROPERTY VERSION ${SOLIBVER})
++    set_property(TARGET astyle_lib PROPERTY SOVERSION ${MAJORVER})
+ endif()
+ 
+ # Set file names if different than 'astyle'
+ if(BUILD_JAVA_LIBS)
+     if(WIN32)
+-        set_property(TARGET astyle PROPERTY OUTPUT_NAME AStyle31j)
+-        set_property(TARGET astyle PROPERTY PREFIX "")
++        set_property(TARGET astyle_javalib PROPERTY OUTPUT_NAME AStyle31j)
++        set_property(TARGET astyle_javalib PROPERTY PREFIX "")
+     else()
+-        set_property(TARGET astyle PROPERTY OUTPUT_NAME astylej)
++        set_property(TARGET astyle_javalib PROPERTY OUTPUT_NAME astylej)
+     endif()
+-elseif(BUILD_SHARED_LIBS)
++endif()
++if(BUILD_SHARED_LIBS)
+     if(WIN32)
+-        set_property(TARGET astyle PROPERTY OUTPUT_NAME AStyle31)
+-        set_property(TARGET astyle PROPERTY PREFIX "")
++        set_property(TARGET astyle_lib PROPERTY OUTPUT_NAME AStyle31)
++        set_property(TARGET astyle_lib PROPERTY PREFIX "")
++    else()
++        set_property(TARGET astyle_lib PROPERTY OUTPUT_NAME astyle)
+     endif()
+ elseif(BUILD_STATIC_LIBS)
+     if(WIN32)
+-        set_property(TARGET astyle PROPERTY OUTPUT_NAME AStyleLib)
+-        set_property(TARGET astyle PROPERTY PREFIX "")
++        set_property(TARGET astyle_lib PROPERTY OUTPUT_NAME AStyleLib)
++        set_property(TARGET astyle_lib PROPERTY PREFIX "")
++    else()
++        set_property(TARGET astyle_lib PROPERTY OUTPUT_NAME astyle)
+     endif()
+-else()
++endif()
++if(BUILD_EXECUTABLE)
+     if(WIN32)
+         set_property(TARGET astyle PROPERTY OUTPUT_NAME AStyle)
+     endif()
+ endif()
+ 
+-macro(set_linker_options strip_option)
+-    # Remove -rdynamic and add 'strip' to linker flags
+-    if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+-        set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
+-        set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} ${strip_option}")
+-        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${strip_option}")
+-    endif()
+-    # Shared library options
+-    if(BUILD_SHARED_LIBS)
+-        if(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
+-            set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-intel")
+-        elseif(MINGW)
+-            # minGW dlls don't work
+-            # tdm-gcc dlls work with everything except python
+-            set(CMAKE_SHARED_LINKER_FLAGS
+-                "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--add-stdcall-alias -Wl,--dll")
+-        elseif(BORLAND)
+-            # use a development environment to compile Borland dlls
+-        endif()
+-    endif()
+-endmacro()
+-
+-# Set default compile options for supported compilers
+-if(APPLE)
+-    target_compile_options(
+-        astyle PRIVATE -W -Wall -fno-rtti -fno-exceptions -std=c++11 -stdlib=libc++)
+-    set_linker_options("")
+-elseif(NOT WIN32)   # Linux
+-    target_compile_options(astyle PRIVATE -Wall -fno-rtti -fno-exceptions -std=c++11)
+-    set_linker_options("-s")
+-elseif(BORLAND)     # Release must be explicitely requested for Borland
+-    target_compile_options(astyle PRIVATE -w -x-)   # Cannot use no-rtti (-RT-)
+-    set_linker_options("")
+-elseif(MINGW)
+-    target_compile_options(astyle PRIVATE -Wall -Wextra -fno-rtti -fno-exceptions -std=c++0x)
+-    set_linker_options("-s")
+-endif()
+-
+ # Display build information
+ if(BUILD_JAVA_LIBS)
+     message("CMAKE_BUILD_TYPE is Java ${CMAKE_BUILD_TYPE} ${SOLIBVER}")
+-elseif(BUILD_SHARED_LIBS)
++endif()
++if(BUILD_SHARED_LIBS)
+     message("CMAKE_BUILD_TYPE is Shared ${CMAKE_BUILD_TYPE} ${SOLIBVER}")
+-elseif(BUILD_STATIC_LIBS)
++endif()
++if(BUILD_STATIC_LIBS)
+     message("CMAKE_BUILD_TYPE is Static ${CMAKE_BUILD_TYPE}")
+-else()
++endif()
++if(BUILD_EXECUTABLE)
+     message("CMAKE_BUILD_TYPE is Executable ${CMAKE_BUILD_TYPE}")
+ endif()
+ set(CMAKE_VERBOSE_MAKEFILE ON)

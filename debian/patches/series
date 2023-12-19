@@ -1,0 +1,4 @@
+privacy.patch
+cmakelists.patch
+no_PATH_MAX.patch
+news_encoding.patch
