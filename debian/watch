@@ -1,3 +1,8 @@
-version=4
-https://sf.net/astyle/astyle_([\d.]+)_linux\.tar\.gz \
-  debian uupdate
+Version: 5
+# The following should suffice, but it currently (2025-10-26) fails with:
+# https://qa.debian.org/watch/sf.php/astyle/ failed: 429 SourceForge HTTP Error: Too Many Requests
+Source: https://sf.net/@PACKAGE@/
+Matching-Pattern: @PACKAGE@-@ANY_VERSION@\.tar\.bz2
+# This bypasses the redirector:
+#Source: https://sourceforge.net/projects/@PACKAGE@/files/@PACKAGE@/@PACKAGE@%20@ANY_VERSION@/
+#Matching-Pattern: @PACKAGE@-@ANY_VERSION@\.tar\.bz2/download
