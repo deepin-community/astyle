@@ -1,2 +1,3 @@
 usr/bin/astyle
-usr/share/doc/astyle/* usr/share/doc/astyle/html
+usr/share/doc/astyle/
+usr/share/man/man1/astyle.1

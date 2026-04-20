@@ -1,0 +1,33 @@
+Description: Fixes various issues in astyle.1 manpage
+Author: Matteo Cypriani <mcy@lm7.fr>
+Forwarded: no
+Last-Update: 2025-10-26
+--- a/man/astyle.1
++++ b/man/astyle.1
+@@ -146,7 +146,7 @@
+ 
+ .IP "--indent-modifiers OR -xG"
+ Indent 'class' access modifiers, 'public:', 'protected:' or
+-'private:', one half indent. The rest of the class is not
++\(aqprivate:', one half indent. The rest of the class is not
+ indented.
+ 
+ .IP "--indent-switches OR -S"
+@@ -459,7 +459,7 @@
+ .IP "--options=none"
+ Specify a default option file #### to read and use.
+ It must contain a file path and a file name.
+-'none' disables the default option file.
++\(aqnone' disables the default option file.
+ 
+ .IP "--project"
+ .IP "--project=####"
+@@ -468,7 +468,7 @@
+ It must contain a file name only, without a directory path.
+ The file should be included in the project top-level directory.
+ The default file name is .astylerc or _astylerc.
+-'none' disables the project or environment variable file.
++\(aqnone' disables the project or environment variable file.
+ 
+ .IP "--ascii OR -I"
+ The displayed output will be ascii characters only.

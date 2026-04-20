@@ -1,10 +1,21 @@
 Description: Remove SourceForge logo privacy breach
 Author: Matteo Cypriani <mcy@lm7.fr>
 Forwarded: not-needed
-Last-Update: 2018-03-18
+Last-Update: 2025-10-26
 --- a/doc/astyle.html
 +++ b/doc/astyle.html
-@@ -2465,7 +2465,7 @@
+@@ -2649,7 +2649,7 @@
+ 
+     <p >
+         <a href="http://sourceforge.net/projects/astyle">
+-            <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" />
++            Artistic Style on SourceForge.net
+         </a></p>
+ 
+     </div>
+--- a/doc/development.html
++++ b/doc/development.html
+@@ -148,7 +148,7 @@
  
      <p style="margin-left: -0.4in; text-align: center;">
          <a href="http://sourceforge.net/projects/astyle">
@@ -12,21 +23,72 @@ Last-Update: 2018-03-18
 +            Artistic Style on SourceForge.net
          </a></p>
  
-     <p>
+ 
 --- a/doc/install.html
 +++ b/doc/install.html
-@@ -567,7 +567,7 @@
+@@ -620,7 +620,7 @@
+ 
+         <p style="margin-left: -0.4in; text-align: center;">
+             <a href="http://sourceforge.net/projects/astyle">
+-                <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" />
++                Artistic Style on SourceForge.net
+             </a>
+         </p>
+ 
+@@ -629,4 +629,4 @@
+ 
+ </body>
+ 
+-</html>
+\ Pas de fin de ligne à la fin du fichier
++</html>
+--- a/doc/links.html
++++ b/doc/links.html
+@@ -221,7 +221,7 @@
  
      <p style="margin-left: -0.4in; text-align: center;">
          <a href="http://sourceforge.net/projects/astyle">
--            <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" />
-+            Artistic Style on SourceForge.net
-         </a></p>
+-            <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" /></a></p>
++            Artistic Style on SourceForge.net</a></p>
  
-     <p>
+ </body>
+ 
 --- a/doc/news.html
 +++ b/doc/news.html
-@@ -731,7 +731,7 @@
+@@ -599,7 +599,7 @@
+ 
+     <p style="margin-left: -0.4in; text-align: center;">
+         <a href="http://sourceforge.net/projects/astyle">
+-            <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" /></a>
++            Artistic Style on SourceForge.net</a>
+         </p>
+ 
+ </body>
+--- a/doc/scripts.html
++++ b/doc/scripts.html
+@@ -72,7 +72,7 @@
+ 
+     <p style="margin-left: -0.4in; text-align: center;">
+         <a href="http://sourceforge.net/projects/astyle">
+-            <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" /></a></p>
++            Artistic Style on SourceForge.net</a></p>
+ 
+     <p>
+         &nbsp;</p>
+--- a/doc/subversion.html
++++ b/doc/subversion.html
+@@ -113,7 +113,7 @@
+ 
+     <p style="margin-left: -0.4in; text-align: center;">
+         <a href="http://sourceforge.net/projects/astyle">
+-            <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" /></a></p>
++            Artistic Style on SourceForge.net</a></p>
+ 
+     <p>
+         &nbsp;</p>
+--- a/doc/vsinstall.html
++++ b/doc/vsinstall.html
+@@ -81,7 +81,7 @@
  
      <p style="margin-left: -0.4in; text-align: center;">
          <a href="http://sourceforge.net/projects/astyle">
@@ -37,12 +99,28 @@ Last-Update: 2018-03-18
          &nbsp;</p>
 --- a/doc/notes.html
 +++ b/doc/notes.html
-@@ -391,7 +391,7 @@
- 
-     <p style="margin-left: -0.4in; text-align: center;">
-         <a href="http://sourceforge.net/projects/astyle">
--            <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="" /></a></p>
-+            Artistic Style on SourceForge.net</a></p>
- 
-     <p>
-         &nbsp;</p>
+@@ -483,7 +483,7 @@
+         <footer>
+             <p class="sourceforge-logo">
+                 <a href="http://sourceforge.net/projects/astyle">
+-                    <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="SourceForge Logo" />
++                    Artistic Style on SourceForge.net
+                 </a>
+             </p>
+         </footer>
+--- a/doc/index.html
++++ b/doc/index.html
+@@ -251,10 +251,10 @@
+         <footer>
+             <p class="sourceforge-logo">
+                 <a href="http://sourceforge.net/projects/astyle">
+-                    <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2319&type=16" alt="SourceForge Logo" />
++                    Artistic Style on SourceForge.net
+                 </a>
+             </p>
+         </footer>
+     </main>
+ </body>
+-</html>
+\ Pas de fin de ligne à la fin du fichier
++</html>

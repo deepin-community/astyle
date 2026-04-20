@@ -1,3 +1,28 @@
+astyle (3.6.12-1) unstable; urgency=medium
+
+  [ Samuel Thibault ]
+  * d/control: Generalize hurd-i386 into hurd-any.
+
+  [ Matteo Cypriani ]
+  * New upstream version 3.6.12.
+    Closes: #842247, #915034, #1112711, #1116384.
+    + Update debian/copyright.
+    + Update debian/*.links.
+    + Install upstream manpage, dropped Debian-maintained one.
+  * Patches:
+    + Refreshed privacy.patch.
+    + Reworked cmakelists.patch.
+    + Added manpage.patch.
+    + Dropped news_encoding.patch (applied upstream).
+    + Dropped no_PATH_MAX.patch (applied upstream).
+  * d/watch: Fixed & switched to format version 5.
+  * Removed unused Lintian overrides.
+  * d/control:
+    + Dropped redundant Rules-Requires-Root.
+    + Bumped Standards-Version to 4.7.2 (no changes needed).
+
+ -- Matteo Cypriani <mcy@lm7.fr>  Sun, 26 Oct 2025 21:02:33 +0100
+
 astyle (3.1-3) unstable; urgency=medium
 
   [ Ondřej Nový ]
